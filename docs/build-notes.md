@@ -24,7 +24,7 @@ Friction:
 - **Template references.** In template v2, a list item with a `value` key is read as an `{if, value}` conditional, and every reference has a `value`. Fix: wrap a room's references in one `- value: [...]` entry.
 - **Template `repo:` clone** did not happen for 2 of the 4 agents. Cloned by hand; `make agent-dirs` now clones or resets every agent dir.
 - **Approval comments** used the Slack handle. The room instructions now ask for the owner name from the README.
-- **Refusal wording.** Manav's Slack account is not linked to a Switch user yet, so the refusal on `@dash-bot` reads "not linked" instead of "not permitted".
+- **Guardrail works.** `@dash-bot` is owner only (Switch addressing), so Manav's approval is refused visibly in the thread, and Ayush's goes through. Access to agents is role based and enforced by Switch, not by the prompt.
 
 Worked:
 - Agents, rooms, group, "depends on" links, roles and aliases all created from `switch/blast-radius.template.yaml` by switch-buddy.
@@ -32,4 +32,4 @@ Worked:
 - The refusal of Manav on `@dash-bot` works.
 - The dbt bot found its own fix: one alias `account_id as user_id` in `stg_events` instead of the planned 3 file rename. Both are valid; `make verify` checks the planned one.
 
-- 2026-11-06: On a Switch Console local server, a teammate in Slack has no Switch account to link (only the server owner can sign in), so the refusal on @dash-bot reads "this chat account is not linked to a Switch user" rather than naming the rule. The refusal itself is enforced by the agent's addressing setting (owner-agents).
+- 2026-11-06: On a Switch Console local server, a teammate in Slack has no Switch account to link (only the server owner can sign in), so the refusal on @dash-bot reads "this chat account is not linked to a Switch user" rather than naming the rule. The guardrail itself is the agent's addressing setting (owner-agents), enforced by Switch.

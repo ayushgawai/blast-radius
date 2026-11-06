@@ -178,6 +178,21 @@ We built this by voice with [Wispr Flow](https://wisprflow.ai/?promo_code=WEMAKE
 
 TODO: confirm this list against what we actually dictated, and add both Wispr usage cards.
 
+## Guardrails: role based access to agents
+
+Agents here can run commands, push branches and open PRs, so who may instruct each one is a security setting, enforced by Switch, not by a prompt.
+
+| Agent | Can run commands on the host | Who can instruct it (Switch addressing) |
+| --- | --- | --- |
+| `@coordinator` | yes | owner and owner's agents only |
+| `@dash-bot` | yes | owner and owner's agents only |
+| `@dbt-bot`, `@ml-bot` | yes, inside their repo clone | people in their rooms (`anyone_in`), so the teammate who owns the repo can approve |
+
+- **Refused, visibly.** When someone who is not permitted addresses an agent, Switch answers with a refusal in the thread instead of silence. On camera, Manav tries to approve the dashboards fix and `@dash-bot` refuses; Ayush, the owner, approves it.
+- **Least privilege by default.** The coordinator and `@dash-bot` stay owner only because both run with bypass on the owner's Mac.
+- **Approvals are recorded.** Every approval becomes an "approved by <owner> in Switch" comment on the fix PR and the Jira ticket, and the upstream `blast-radius` check only turns green after all of them.
+- **Identity.** On a Switch Console local server only the server owner signs in to Switch, so the refusal tells Manav his Slack account is not linked to a Switch user. On a shared Switch server each person links their own account and rules can name them.
+
 ## Limitations and what we would build next
 
 What Switch did differently than we expected, and what we did about it:
@@ -187,8 +202,7 @@ What Switch did differently than we expected, and what we did about it:
 - **Template references need a wrapper.** In template v2 a list item with a `value` key is read as an `{if, value}` conditional, and every reference has `value`. We wrap a room's references in one `- value: [...]` entry.
 - **Bundled Mattermost needs Docker's default socket.** It needs Docker with "Allow the default Docker socket" turned on. We used Slack instead: it works from a laptop over Socket Mode, and Manav joins from his own laptop.
 - **Slack app manifest.** Copy it from the Switch docs as JSON.
-- **Refusal message.** Until Manav links his Slack account to a Switch user, the refusal on `@dash-bot` reads as "not linked" rather than "not permitted". The refusal still happens.
-- **Per person permissions.** Template `addressing` has `owner`, `owner-agents`, `anyone` and `anyone_in`. There is no "these two people" option, so for `@dbt-bot` and `@ml-bot` the "only the owner approves" rule lives in the room instructions, and Switch enforces it hard only on `@dash-bot`.
+- **Per person rules in templates.** Template `addressing` has `owner`, `owner-agents`, `anyone` and `anyone_in`, so naming one specific teammate is done afterwards in agent settings (Custom rules). For `@dbt-bot` and `@ml-bot` we use `anyone_in` plus room instructions that only the repo owner's approval counts.
 
 Not about Switch: Jira projects get the key `KAN` by default, so we renamed ours to `BR`. The dbt bot fixed the rename with one alias in `stg_events` (`account_id as user_id`) instead of the 3 file rename in SPEC.md; both are valid fixes, and `make verify` checks the SPEC version.
 
