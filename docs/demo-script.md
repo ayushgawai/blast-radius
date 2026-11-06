@@ -5,7 +5,7 @@ Each of you records your own full screen in one long take. Stay on a call and go
 ## Keep open before you start
 
 **Ayush**
-- Slack
+- Slack. Create one extra channel once: `#data-team` (Slack sidebar, Add channels, Create a new channel), add Manav.
 - Switch Console (all 4 agents running)
 - Browser tab 1: https://github.com/ayushgawai/br-events-producer/blob/main/producer/schema.py
 - Browser tab 2: https://github.com/ayushgawai/br-events-producer/pulls
@@ -24,10 +24,10 @@ Each of you records your own full screen in one long take. Stay on a call and go
 2. Manav: open Slack channel `#switch-test`.
 3. Ayush: Slack `#switch-test`, type `sync`
 4. Manav: go to Slack channel `#analytics` and stay there.
-5. Ayush: Slack `#general`, type `renaming user_id to account_id tonight, does this break anyone?`
-6. Ayush: Switch Console, Agents: show the 4 agents and their providers: `br-coordinator` (Claude Code), `br-dbt` (Claude Code), `br-ml` (OpenAI Codex), `br-dash` (OpenCode). Hold 3 seconds.
-7. Ayush: Switch Console, Rooms: show `schema-changes`, `analytics`, `ml-features`, `dashboards` in the `blast-radius` group with the "depends on" links. Hold 3 seconds.
-8. Ayush: Switch Console, Messaging apps: show Slack connected. Then Connections: show Atlassian (Jira) connected. Hold 3 seconds each.
+5. Ayush: Slack `#data-team`, type `renaming user_id to account_id tonight, does this break anyone?`
+6. Ayush: Switch Console, left menu **Agents**: show the 4 agents and their providers: `br-coordinator` (Claude Code), `br-dbt` (Claude Code), `br-ml` (OpenAI Codex), `br-dash` (OpenCode). Hold 3 seconds.
+7. Ayush: Switch Console, left menu **Rooms**: show `schema-changes`, `analytics`, `ml-features`, `dashboards`. Hold 3 seconds. (The "depends on" links show up later in the coordinator's reply.)
+8. Ayush: Switch Console, left menu **Admin**, Messaging apps: show Slack connected. Then left menu **Connectors**: show Atlassian (Jira) connected. Hold 3 seconds each.
 9. Ayush: Slack `#schema-changes`, type `!roles`
 10. Ayush: Slack `#schema-changes`, type `!list-aliases`
 11. Ayush: Slack `#schema-changes`, type `!list-references`
@@ -37,7 +37,7 @@ Each of you records your own full screen in one long take. Stay on a call and go
 15. Ayush: browser tab 2, open the PR, scroll down to the `blast-radius` check (pending).
 16. Ayush: browser tab 3, refresh, show the 3 new tickets, each assigned to its repo owner (Manav or Ayush).
 17. Ayush: in Slack, click each fix PR link the bots posted and show the green check on each.
-18. Ayush: Switch Console, open agent `br-dash`, show "Who can talk to your agent" (owner only). Do not change it.
+18. Ayush: Switch Console, left menu **Agents**, open `br-dash`, show "Who can talk to your agent" (owner only). Do not change it.
 19. Ayush: tell Manav "your turn".
 20. Manav: Slack `#dashboards`, type `@dash-bot looks good, approved.` Wait for the refusal. Tell Ayush "done".
 21. Ayush: Slack `#dashboards`, type `@dash-bot approved, thanks.` Wait for the reply. Tell Manav "your turn".
