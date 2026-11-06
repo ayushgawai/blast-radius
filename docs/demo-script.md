@@ -1,69 +1,75 @@
-# Demo video script
+# Demo recording script
 
-Target: 2:50, one real run, everything shown live. Two people record their own screens at the same time; we cut between them in the edit. Any sped up part gets an on screen label.
+You two perform one real run and each record your own screen in one long, uninterrupted recording. You do not edit anything. Claude cuts, trims, speeds up the waiting, adds labels and the voiceover, and makes the final 2:50 video.
 
-## Who records what
+Read the whole script once before starting. Steps are in order. Each step says who does it. **Never do a step before the step marked WAIT before it is finished.**
 
-| | Ayush (owner of producer and dashboards) | Manav (owner of dbt and ML) |
-| --- | --- | --- |
-| Screen | Left half: Slack. Right half: browser with tabs: (1) `br-events-producer` on GitHub, (2) Jira board BR, (3) the 3 fix PRs as they appear | Slack, full screen |
-| Records | Full screen, mic off (voiceover is added later) | Full screen, mic off, webcam optional |
-| Tool | QuickTime: File, New Screen Recording (or OBS), 1080p | Same |
-| Wispr Flow | On, overlay visible | On |
+## Part 1: before recording (both, 5 minutes)
 
-Both: Do Not Disturb on, close other apps, Slack zoom 110 percent, Slack sidebar shows only the 4 channels (star them: schema-changes, analytics, ml-features, dashboards), same Slack theme. Start recording 10 seconds before the run and stop 10 seconds after the green check. Do not stop recording between steps; the edit cuts the waiting.
+**Both machines**
+- Do Not Disturb on. Close every other app and browser tab.
+- Slack: zoom 110 percent (Cmd and +). Star the 4 channels so they sit at the top: `schema-changes`, `analytics`, `ml-features`, `dashboards`.
+- Wispr Flow on.
+- Get on a voice call with each other (phone is fine) so you can say "your turn". The call audio is not used.
+- Recorder: QuickTime Player, File, New Screen Recording, Options: microphone None, record the entire screen. (OBS is fine too.)
 
-## Pre flight (Ayush, 5 minutes before)
+**Ayush only**
+- Run `make reset-demo` in the `Blast-Radius` folder. It must finish without errors.
+- Switch Console open; all 4 agents show running.
+- Screen layout: Slack on the left half. Browser on the right half with 2 tabs: (1) https://github.com/ayushgawai/br-events-producer/blob/main/producer/schema.py (2) your Jira board for project BR.
 
-- [ ] `make reset-demo` ran clean (closes old PRs and resets agent folders)
-- [ ] Switch Console open, all 4 agents running (br-coordinator, br-dbt, br-ml, br-dash)
-- [ ] In #schema-changes, `!roles` shows coordinator and 3 checkers (do this off camera, or keep it for shot 2)
-- [ ] GitHub tab open on `br-events-producer/producer/schema.py`, signed in
-- [ ] Jira board BR open, previous demo tickets moved out of view (filter: created today)
-- [ ] Wispr Flow on, both machines
-- [ ] Manav is in Slack and ready, on a call with Ayush (audio not recorded) so you can cue each other
+**Manav only**
+- Slack full screen, open on `#analytics`.
 
-## The take
+## Part 2: the run
 
-Times are real time from the start of the take. Agent work takes several minutes; that is fine, the edit speeds it up.
-
-| # | Who | Do exactly this | Wait for |
+| Step | Who | Do exactly this | Then |
 | --- | --- | --- | --- |
-| 1 | Ayush | In #schema-changes type `!roles`, then `!list-aliases` | Role holders and aliases listed |
-| 2 | Ayush | GitHub tab: open `producer/schema.py`, click the pencil, change `USER_KEY = "user_id"` to `USER_KEY = "account_id"`. Commit changes: choose "Create a new branch", name it `rename-user-key`, Propose changes. PR title `Rename user_id to account_id in events`, Create pull request | PR page open; copy its URL |
-| 3 | Ayush | In #schema-changes, hold the Wispr key and say: "Heads up team: I'm renaming user_id to account_id in the events table. PR: (paste URL). At coordinator, what does this break?" Fix the mention to `@coordinator` if Wispr writes it as words, then send | Coordinator restates, names 3 rooms, calls `@impact-checker` |
-| 4 | Ayush | Switch to the GitHub PR tab, scroll to checks | `blast-radius` pending, merge blocked |
-| 5 | Both | Hands off. Ayush keeps #schema-changes thread visible; Manav keeps #analytics visible | 3 checker reports in the thread, each with failing checks and a Jira key |
-| 6 | Ayush | Jira tab, refresh | 3 tickets assigned to their owners |
-| 7 | Ayush | Fix PR tabs as they appear: open each, show the diff and the green CI | 3 fix PRs, CI green |
-| 8 | Ayush | Back to #schema-changes | Coordinator impact report: 6 breakages, 3 repos, document impact-<n> |
-| 9 | Manav | Go to #dashboards. Type: `@dash-bot looks good, approved.` | **The refusal.** Keep it on screen 3 seconds |
-| 10 | Ayush | In #dashboards: `@dash-bot approved, thanks.` | dash-bot confirms, Jira ticket moves to Done |
-| 11 | Manav | In #analytics: `@dbt-bot approved.` Then in #ml-features: `@ml-bot approved.` | Both confirm |
-| 12 | Ayush | #schema-changes | "PR #<n> cleared: 6 breakages fixed across 3 repos. All owners approved." |
-| 13 | Ayush | GitHub PR tab, refresh | `blast-radius` green, PR mergeable. Hold 3 seconds. Stop recording |
+| 0 | **BOTH** | Start recording. | Say "recording" on the call. |
+| 1 | **AYUSH** | In `#switch-test` send: `sync`. | This is the sync mark for the edit. **Manav:** have `#switch-test` open when it arrives, then switch back to `#analytics`. |
+| 2 | **AYUSH** | In `#general` send: `renaming user_id to account_id tonight, does this break anyone?` | Nobody replies. Wait 5 seconds. |
+| 3 | **AYUSH** | In `#schema-changes` send `!roles`, wait for the reply, then send `!list-aliases`. | Wait for both replies. |
+| 4 | **AYUSH** | Browser tab 1 (`schema.py` on GitHub): click the pencil icon. On the line `USER_KEY = "user_id"` change `user_id` to `account_id`. Click **Commit changes**, pick **Create a new branch**, name it `rename-user-key`, click **Propose changes**. Title: `Rename user_id to account_id in events`. Click **Create pull request**. Copy the PR URL. | |
+| 5 | **AYUSH** | In `#schema-changes`, hold the Wispr key and say: "Heads up team, I'm renaming user underscore id to account underscore id in the events table. PR" then paste the URL, then say "at coordinator, what does this break?" Fix the text so it reads exactly: `Heads up team: I'm renaming user_id to account_id in the events table. PR: <URL>. @coordinator what does this break?` and send. | |
+| 6 | **AYUSH** | Wait. Keep the `#schema-changes` thread on screen. | Coordinator replies, then `@dbt-bot`, `@ml-bot`, `@dash-bot` each report failures and a Jira key. This takes a few minutes. |
+| 7 | **AYUSH** | Browser: open the PR tab, scroll to the checks. Then the Jira tab, refresh. Then open each fix PR link the bots posted, show the green check. | |
+| 8 | **AYUSH** | Back to `#schema-changes`. | Wait for the coordinator's line starting `Impact report for PR #`. Then say "Manav, your turn" on the call. |
+| | **WAIT** | **Manav does nothing until Ayush says "your turn". All 3 fix PRs and the impact report must exist first.** | |
+| 9 | **MANAV** | Go to `#dashboards`. Send: `@dash-bot looks good, approved.` | dash-bot **refuses** you. Leave it on screen 5 seconds. Say "done" on the call. |
+| | **WAIT** | **Ayush waits for Manav's "done".** | |
+| 10 | **AYUSH** | Go to `#dashboards`. Send: `@dash-bot approved, thanks.` | Wait for dash-bot to confirm. Say "your turn" on the call. |
+| | **WAIT** | **Manav waits for "your turn".** | |
+| 11 | **MANAV** | Go to `#analytics`. Send: `@dbt-bot approved.` Wait for dbt-bot to confirm. | |
+| 12 | **MANAV** | Go to `#ml-features`. Send: `@ml-bot approved.` Wait for ml-bot to confirm. | Say "done" on the call. Then go to `#schema-changes` and wait there. |
+| 13 | **AYUSH** | Go to `#schema-changes`. | Wait for `PR #<n> cleared: 6 breakages fixed across 3 repos.` |
+| 14 | **AYUSH** | Browser: PR tab, refresh. Then Jira tab, refresh. | `blast-radius` is green and the 3 tickets are Done. Hold 5 seconds. |
+| 15 | **BOTH** | Stop recording. | |
 
-Opening shot (record any time before, 10 seconds): Ayush posts in a plain channel such as #general: "renaming user_id to account_id tonight, does this break anyone?" and nobody answers.
+If something goes wrong: do not stop recording. Say what happened on the call, fix it, continue. Claude cuts it out. If the GitHub edit in step 4 fails, Ayush runs `make break` and `make demo-message` in the terminal and pastes that message in step 5.
 
-If something goes wrong mid take: keep recording, fix it, carry on; we cut it out. If the GitHub edit fails, run `make break` and use `make demo-message`.
+## Part 3: hand over
 
-## Edit (final cut, 2:50)
+Put both files in `Blast-Radius/recordings/` (this folder is gitignored):
+- `ayush.mov`
+- `manav.mov` (send it to Ayush by AirDrop, Drive or WeTransfer)
 
-| Time | Show | Source | Voiceover (Ayush, recorded after, read slowly) |
+Also give Claude an ElevenLabs API key (free tier works) for the voiceover. Without one, Claude uses a built in macOS voice.
+
+## Part 4: the cut (Claude does this)
+
+Sync both recordings on the `sync` message from step 1. Sped up clips get a corner label with the real factor, for example "sped up 8x". The refusal plays at real speed.
+
+| Time | Show | Source | Voiceover |
 | --- | --- | --- | --- |
-| 0:00 to 0:10 | The unanswered "does this break anyone?" post | opening shot | Every data team has shipped a change that silently broke someone else. |
-| 0:10 to 0:25 | Slack channel list, `!roles`, aliases | Ayush, step 1 | Blast Radius gives every downstream repo an agent in team chat. Four agents, three providers, all through Switch. |
-| 0:25 to 0:40 | The one line edit and the PR | Ayush, step 2 | One small change upstream. |
-| 0:40 to 0:52 | Dictating the message, Wispr overlay visible | Ayush, step 3 | I just say it. |
-| 0:52 to 1:30 | Coordinator fans out; three reports stream in (label: sped up) | Ayush, steps 3 to 5, Manav's #analytics as picture in picture | Each agent tests the change in the repo it speaks for: dbt, pandas, SQL. Real commands, real failures. |
-| 1:30 to 1:45 | Jira tickets, fix PRs with green CI, pending check | Ayush, steps 4, 6, 7 | Six breakages, three Jira tickets, three fix PRs, and the upstream PR is blocked. |
-| 1:45 to 2:05 | Manav refused on @dash-bot; Ayush approves | Manav step 9 full screen, then Ayush step 10 | Only the owner can approve. Switch enforces it, not a prompt. |
-| 2:05 to 2:25 | Manav approves dbt and ML | Manav, step 11 | Manav owns the other two repos, so he approves those. |
-| 2:25 to 2:42 | Coordinator clears; check turns green | Ayush, steps 12 and 13 | Three teams, two days of threads, now a few minutes. |
-| 2:42 to 2:50 | End card: name, subtitle, repo URL, "Built with Switch, dictated with Wispr Flow" | still | Any team that shares data, even two friends on a side project, gets a teammate for every repo. |
+| 0:00 to 0:10 | The unanswered "does this break anyone?" post | Ayush, step 2 | Every data team has shipped a change that silently broke someone else. |
+| 0:10 to 0:25 | Channel list, `!roles`, aliases | Ayush, step 3 | Blast Radius gives every downstream repo an agent in team chat. Four agents, three providers, all through Switch. |
+| 0:25 to 0:40 | The one line edit and the PR | Ayush, step 4 | One small change upstream. |
+| 0:40 to 0:52 | Dictating the message, Wispr overlay visible | Ayush, step 5 | I just say it. |
+| 0:52 to 1:30 | Coordinator fans out; three reports stream in (sped up) | Ayush, step 6, with Manav's screen picture in picture | Each agent tests the change in the repo it speaks for: dbt, pandas, SQL. Real commands, real failures. |
+| 1:30 to 1:45 | Pending check, Jira tickets, fix PRs with green CI | Ayush, step 7 | Six breakages, three Jira tickets, three fix PRs, and the upstream PR is blocked. |
+| 1:45 to 2:05 | Manav refused; Ayush approves | Manav step 9, Ayush step 10 | Only the owner can approve. Switch enforces it, not a prompt. |
+| 2:05 to 2:25 | Manav approves dbt and ML | Manav, steps 11 and 12 | Manav owns the other two repos, so he approves those. |
+| 2:25 to 2:42 | Coordinator clears; check green; tickets Done | Ayush, steps 13 and 14 | Three teams, two days of threads, now a few minutes. |
+| 2:42 to 2:50 | End card: Blast Radius, "Know what your schema change breaks before you merge it.", repo URL, "Built with Switch, dictated with Wispr Flow" | generated | Any team that shares data, even two friends on a side project, gets a teammate for every repo. |
 
-Label every sped up clip in a corner: "sped up 8x" (use the real factor). Keep the refusal at real speed.
-
-## 30 second cut for #HowISwitch
-
-0:00 to 0:05 the dictated message; 0:05 to 0:15 the fan out and three reports (sped up); 0:15 to 0:25 Manav refused, Ayush approves; 0:25 to 0:30 green check. Text is in `docs/social.md`.
+Also cut: a 30 second version for #HowISwitch (dictated message, fan out, refusal and approval, green check).
