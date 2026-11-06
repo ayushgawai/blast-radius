@@ -1,5 +1,7 @@
 # Blast Radius
 
+### Know what your schema change breaks before you merge it.
+
 **One upstream schema change, four Switch agents on three providers: each one tests the change in the repo it speaks for, files a Jira ticket, opens a fix PR, and the upstream check turns green only after every repo owner approves in Slack.**
 
 TODO: demo video link (YouTube, unlisted, under 3 minutes) goes here.
