@@ -1,0 +1,7 @@
+.venv/
+.upstream/
+.reports/
+target/
+logs/
+__pycache__/
+.pytest_cache/

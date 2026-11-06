@@ -1,0 +1,11 @@
+.env
+.venv/
+__pycache__/
+.DS_Store
+.upstream/
+.reports/
+target/
+logs/
+data/
+.pytest_cache/
+Blast Radius Build Brief for the Lead Agent.md

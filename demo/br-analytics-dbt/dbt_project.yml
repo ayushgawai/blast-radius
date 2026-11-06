@@ -1,0 +1,7 @@
+name: br_analytics
+version: "1.0"
+profile: br_analytics
+model-paths: ["models"]
+models:
+  br_analytics:
+    +materialized: table
