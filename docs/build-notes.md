@@ -31,3 +31,5 @@ Worked:
 - Rehearsal 1 passed end to end on upstream PR #2: 6 breakages, Jira BR-4, BR-5, BR-6, 3 fix PRs (br-analytics-dbt#1, br-ml-features#1, br-dashboards-sql#1) with green CI, 3 owner approvals, and the `blast-radius` check green with "6 breakages fixed across 3 repos".
 - The refusal of Manav on `@dash-bot` works.
 - The dbt bot found its own fix: one alias `account_id as user_id` in `stg_events` instead of the planned 3 file rename. Both are valid; `make verify` checks the planned one.
+
+- 2026-11-06: On a Switch Console local server, a teammate in Slack has no Switch account to link (only the server owner can sign in), so the refusal on @dash-bot reads "this chat account is not linked to a Switch user" rather than naming the rule. The refusal itself is enforced by the agent's addressing setting (owner-agents).
