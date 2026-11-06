@@ -16,7 +16,8 @@ Read the whole script once before starting. Steps are in order. Each step says w
 **Ayush only**
 - Run `make reset-demo` in the `Blast-Radius` folder. It must finish without errors.
 - Switch Console open; all 4 agents show running.
-- Screen layout: Slack on the left half. Browser on the right half with 2 tabs: (1) https://github.com/ayushgawai/br-events-producer/blob/main/producer/schema.py (2) your Jira board for project BR.
+- Screen layout: Slack on the left half. Browser on the right half with 2 tabs: (1) https://github.com/ayushgawai/br-events-producer/blob/main/producer/schema.py (2) Jira project BR: https://ayushsunilgawai.atlassian.net/browse/BR (open its board).
+- Switch Console open in its own window (used in step 8).
 
 **Manav only**
 - Slack full screen, open on `#analytics`.
@@ -26,14 +27,14 @@ Read the whole script once before starting. Steps are in order. Each step says w
 | Step | Who | Do exactly this | Then |
 | --- | --- | --- | --- |
 | 0 | **BOTH** | Start recording. | Say "recording" on the call. |
-| 1 | **AYUSH** | In `#switch-test` send: `sync`. | This is the sync mark for the edit. **Manav:** have `#switch-test` open when it arrives, then switch back to `#analytics`. |
+| 1 | **AYUSH** | In `#switch-test` send: `sync`. | **Manav:** before Ayush sends it, open `#switch-test` on your Slack, so your recording catches the message arriving. Then go back to `#analytics`. Claude lines the two videos up on this moment. |
 | 2 | **AYUSH** | In `#general` send: `renaming user_id to account_id tonight, does this break anyone?` | Nobody replies. Wait 5 seconds. |
-| 3 | **AYUSH** | In `#schema-changes` send `!roles`, wait for the reply, then send `!list-aliases`. | Wait for both replies. |
+| 3 | **AYUSH** | In `#schema-changes` send `!roles`, wait for the reply, then `!list-aliases`, then `!list-references`. | Wait for all 3 replies (roles, aliases, GitHub and Jira references). |
 | 4 | **AYUSH** | Browser tab 1 (`schema.py` on GitHub): click the pencil icon. On the line `USER_KEY = "user_id"` change `user_id` to `account_id`. Click **Commit changes**, pick **Create a new branch**, name it `rename-user-key`, click **Propose changes**. Title: `Rename user_id to account_id in events`. Click **Create pull request**. Copy the PR URL. | |
 | 5 | **AYUSH** | In `#schema-changes`, hold the Wispr key and say: "Heads up team, I'm renaming user underscore id to account underscore id in the events table. PR" then paste the URL, then say "at coordinator, what does this break?" Fix the text so it reads exactly: `Heads up team: I'm renaming user_id to account_id in the events table. PR: <URL>. @coordinator what does this break?` and send. | |
 | 6 | **AYUSH** | Wait. Keep the `#schema-changes` thread on screen. | Coordinator replies, then `@dbt-bot`, `@ml-bot`, `@dash-bot` each report failures and a Jira key. This takes a few minutes. |
 | 7 | **AYUSH** | Browser: open the PR tab, scroll to the checks. Then the Jira tab, refresh. Then open each fix PR link the bots posted, show the green check. | |
-| 8 | **AYUSH** | Back to `#schema-changes`. | Wait for the coordinator's line starting `Impact report for PR #`. Then say "Manav, your turn" on the call. |
+| 8 | **AYUSH** | Switch Console: open agent **br-dash**, settings, "Who can talk to your agent", hold 3 seconds on the owner only setting, close without changing anything. Back to `#schema-changes`. | Wait for the coordinator's line starting `Impact report for PR #`. Then say "Manav, your turn" on the call. |
 | | **WAIT** | **Manav does nothing until Ayush says "your turn". All 3 fix PRs and the impact report must exist first.** | |
 | 9 | **MANAV** | Go to `#dashboards`. Send: `@dash-bot looks good, approved.` | dash-bot **refuses** you. Leave it on screen 5 seconds. Say "done" on the call. |
 | | **WAIT** | **Ayush waits for Manav's "done".** | |
@@ -41,7 +42,7 @@ Read the whole script once before starting. Steps are in order. Each step says w
 | | **WAIT** | **Manav waits for "your turn".** | |
 | 11 | **MANAV** | Go to `#analytics`. Send: `@dbt-bot approved.` Wait for dbt-bot to confirm. | |
 | 12 | **MANAV** | Go to `#ml-features`. Send: `@ml-bot approved.` Wait for ml-bot to confirm. | Say "done" on the call. Then go to `#schema-changes` and wait there. |
-| 13 | **AYUSH** | Go to `#schema-changes`. | Wait for `PR #<n> cleared: 6 breakages fixed across 3 repos.` |
+| 13 | **AYUSH** | Go to `#schema-changes`. | Wait for `PR #<n> cleared: 6 breakages fixed across 3 repos.` Then send `!list-documents` to show the `impact-<n>` report. |
 | 14 | **AYUSH** | Browser: PR tab, refresh. Then Jira tab, refresh. | `blast-radius` is green and the 3 tickets are Done. Hold 5 seconds. |
 | 15 | **BOTH** | Stop recording. | |
 
